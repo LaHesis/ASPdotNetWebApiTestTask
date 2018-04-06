@@ -22,10 +22,10 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Text" Type="String" Nullable="false" Unicode="true" />
           <Property Name="MainTranslation" Type="String" Nullable="false" />
-          <Property Name="PhTranscription" Type="String" Nullable="false" DefaultValue="[...]" Unicode="true" MaxLength="Max" />
+          <Property Name="PhTranscription" Type="String" Nullable="false" DefaultValue="[...]" Unicode="true" />
           <Property Name="IsIrregularVerb" Type="Boolean" Nullable="false" />
           <Property Name="AddingDate" Type="DateTime" Nullable="false" />
-          <Property Name="LearningStage" Type="Byte" Nullable="false" />
+          <Property Name="LearningStage" Type="Byte" Nullable="false" DefaultValue="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
