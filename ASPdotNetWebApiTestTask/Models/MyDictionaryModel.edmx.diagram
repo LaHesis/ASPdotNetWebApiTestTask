@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dbac52139f464e81b86b66163f0b9aa5" Name="MyDictionaryDiagram" >
-        <EntityTypeShape EntityType="Word.WordOdPhrase" Width="1.5" PointX="2.625" PointY="2" />
+        <EntityTypeShape EntityType="Word.WordOrPhrase" Width="1.5" PointX="2.625" PointY="2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

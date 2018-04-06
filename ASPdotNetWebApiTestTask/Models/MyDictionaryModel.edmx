@@ -4,40 +4,62 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Word.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="WordTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="Word.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WordStoreContainer">
+    <EntitySet Name="WordsOdPhrases" EntityType="Word.Store.WordsOdPhrases" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="WordsOdPhrases">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MainTranslation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhTranscription" Type="nvarchar(max)" Nullable="false" DefaultValue="[...]" />
+    <Property Name="IsIrregularVerb" Type="bit" Nullable="false" />
+    <Property Name="WhenAdded" Type="datetime" Nullable="false" />
+    <Property Name="LearningStage" Type="tinyint" Nullable="false" DefaultValue="0" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Word" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="WordContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="WordsOdPhrases" EntityType="Word.WordOdPhrase" />
+        <EntityContainer Name="WordContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WordsOdPhrases" EntityType="Word.WordOrPhrase" />
         </EntityContainer>
-        <EntityType Name="WordOdPhrase">
+        <EntityType Name="WordOrPhrase">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Text" Type="String" Nullable="false" Unicode="true" />
-          <Property Name="MainTranslation" Type="String" Nullable="false" />
+          <Property Name="MainTranslation" Type="String" Nullable="false" Unicode="true" />
           <Property Name="PhTranscription" Type="String" Nullable="false" DefaultValue="[...]" Unicode="true" />
           <Property Name="IsIrregularVerb" Type="Boolean" Nullable="false" />
-          <Property Name="AddingDate" Type="DateTime" Nullable="false" />
+          <Property Name="WhenAdded" Type="DateTime" Nullable="false" />
           <Property Name="LearningStage" Type="Byte" Nullable="false" DefaultValue="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="Word" />
-        <Alias Key="Target" Value="Word.Store" />
-        <EntityContainerMapping CdmEntityContainer="WordContainer" StorageEntityContainer="WordTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WordStoreContainer" CdmEntityContainer="WordContext">
+    <EntitySetMapping Name="WordsOdPhrases">
+      <EntityTypeMapping TypeName="IsTypeOf(Word.WordOrPhrase)">
+        <MappingFragment StoreEntitySet="WordsOdPhrases">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="MainTranslation" ColumnName="MainTranslation" />
+          <ScalarProperty Name="PhTranscription" ColumnName="PhTranscription" />
+          <ScalarProperty Name="IsIrregularVerb" ColumnName="IsIrregularVerb" />
+          <ScalarProperty Name="WhenAdded" ColumnName="WhenAdded" />
+          <ScalarProperty Name="LearningStage" ColumnName="LearningStage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -51,6 +73,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
