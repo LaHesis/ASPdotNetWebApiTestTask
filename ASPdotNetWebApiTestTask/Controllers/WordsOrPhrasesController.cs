@@ -7,22 +7,25 @@ using System.Net.Http;
 using System.Web.Http;
 using ASPdotNetWebApiTestTask.Models;
 using System.Data;
+using System.Web.Mvc;
 
 namespace ASPdotNetWebApiTestTask.Controllers {
-    public class WordsOrPhrasesController : ApiController {
+    public class WordsOrPhrasesController : Controller {
         WordContext db = new WordContext();
 
-        public IEnumerable<WordOrPhrase> GetWordsOrPhrases() {
-            return db.WordsOrPhrases;
+        public ActionResult ApiTables() {
+            // Использовать одноименное с именем метода (ApiTables) представление
+            // и передать представлению объекты модели.
+            return View(db.WordsOrPhrases.ToList());
         }
 
-        [HttpPost]
+        //[HttpPost]
         public void CreateWordOrPhrase([FromBody]WordOrPhrase wrdOrPhrs) {
             db.WordsOrPhrases.Add(wrdOrPhrs);
             db.SaveChanges();
         }
 
-        [HttpPut]
+        //[HttpPut]
         public void EditWordOrPhrase(int id, [FromBody]WordOrPhrase wrdOrPhrs) {
             if (id == wrdOrPhrs.Id) {
                 db.Entry(wrdOrPhrs).State = EntityState.Modified;

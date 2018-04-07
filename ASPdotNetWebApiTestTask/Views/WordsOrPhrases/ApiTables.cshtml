@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Таблицы API";
+    var page = new WebGrid(Model, canPage: true, rowsPerPage: 4, defaultSort: "Text", columnNames: new[] { "Text", "PhTranscription" });
+    page.Pager(WebGridPagerModes.NextPrevious);
+    page.GetHtml(columns: page.Columns(
+        page.Column("Text", "Слово", canSort: true),
+        page.Column("MainTranslation", "Основное значение", canSort: true),
+        page.Column("PhTranscription", "Транскрипция", canSort: true),
+        page.Column("IsIrregularVerb", "Неправильный глагол?", canSort: true),
+        page.Column("WhenAdded", "Добавлен", canSort: true),
+        page.Column("LearningStage", "Степень изучения", canSort: true),
+        page.Column(format: @<i><span style="display: none;">@item.Id</span><b>Редактировать</b></i>)
+        )
+    );
+}
+Почему-то WebGrid не работает, хотя данные в представление передаются:<br>
+@{
+    foreach (var item in Model) {
+        @item.Text;
+        <br>
+    }
+}
