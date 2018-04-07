@@ -6,9 +6,9 @@
     <edmx:StorageModels>
     <Schema Namespace="Word.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="WordStoreContainer">
-    <EntitySet Name="WordsOdPhrases" EntityType="Word.Store.WordsOdPhrases" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WordsOrPhrases" EntityType="Word.Store.WordsOrPhrases" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
-  <EntityType Name="WordsOdPhrases">
+  <EntityType Name="WordsOrPhrases">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -16,7 +16,7 @@
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MainTranslation" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PhTranscription" Type="nvarchar(max)" Nullable="false" DefaultValue="[...]" />
-    <Property Name="IsIrregularVerb" Type="bit" Nullable="false" />
+    <Property Name="IsIrregularVerb" Type="bit" Nullable="false" DefaultValue="false" />
     <Property Name="WhenAdded" Type="datetime" Nullable="false" />
     <Property Name="LearningStage" Type="tinyint" Nullable="false" DefaultValue="0" />
   </EntityType>
@@ -25,7 +25,7 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Word" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="WordContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="WordsOdPhrases" EntityType="Word.WordOrPhrase" />
+          <EntitySet Name="WordsOrPhrases" EntityType="Word.WordOrPhrase" />
         </EntityContainer>
         <EntityType Name="WordOrPhrase">
           <Key>
@@ -35,7 +35,7 @@
           <Property Name="Text" Type="String" Nullable="false" Unicode="true" />
           <Property Name="MainTranslation" Type="String" Nullable="false" Unicode="true" />
           <Property Name="PhTranscription" Type="String" Nullable="false" DefaultValue="[...]" Unicode="true" />
-          <Property Name="IsIrregularVerb" Type="Boolean" Nullable="false" />
+          <Property Name="IsIrregularVerb" Type="Boolean" Nullable="false" DefaultValue="false" />
           <Property Name="WhenAdded" Type="DateTime" Nullable="false" />
           <Property Name="LearningStage" Type="Byte" Nullable="false" DefaultValue="0" />
         </EntityType>
@@ -45,9 +45,9 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="WordStoreContainer" CdmEntityContainer="WordContext">
-    <EntitySetMapping Name="WordsOdPhrases">
+    <EntitySetMapping Name="WordsOrPhrases">
       <EntityTypeMapping TypeName="IsTypeOf(Word.WordOrPhrase)">
-        <MappingFragment StoreEntitySet="WordsOdPhrases">
+        <MappingFragment StoreEntitySet="WordsOrPhrases">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Text" ColumnName="Text" />
           <ScalarProperty Name="MainTranslation" ColumnName="MainTranslation" />

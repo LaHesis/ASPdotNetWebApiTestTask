@@ -25,6 +25,6 @@ namespace ASPdotNetWebApiTestTask.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<WordOrPhrase> WordsOdPhrases { get; set; }
+        public virtual DbSet<WordOrPhrase> WordsOrPhrases { get; set; }
     }
 }

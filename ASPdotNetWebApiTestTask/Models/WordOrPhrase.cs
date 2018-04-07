@@ -18,6 +18,7 @@ namespace ASPdotNetWebApiTestTask.Models
         public WordOrPhrase()
         {
             this.PhTranscription = "[...]";
+            this.IsIrregularVerb = false;
             this.LearningStage = 0;
         }
     

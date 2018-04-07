@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/07/2018 06:31:11
+-- Date Created: 04/07/2018 07:12:49
 -- Generated from EDMX file: C:\!Files\!APF\!ProgrammingAndDevelopment\ASPdotNetWebApiTestTask\ASPdotNetWebApiTestTask\Models\MyDictionaryModel.edmx
 -- --------------------------------------------------
 
@@ -22,13 +22,16 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[WordsOdPhrases]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[WordsOdPhrases];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'WordsOdPhrases'
-CREATE TABLE [dbo].[WordsOdPhrases] (
+-- Creating table 'WordsOrPhrases'
+CREATE TABLE [dbo].[WordsOrPhrases] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Text] nvarchar(max)  NOT NULL,
     [MainTranslation] nvarchar(max)  NOT NULL,
@@ -43,9 +46,9 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id] in table 'WordsOdPhrases'
-ALTER TABLE [dbo].[WordsOdPhrases]
-ADD CONSTRAINT [PK_WordsOdPhrases]
+-- Creating primary key on [Id] in table 'WordsOrPhrases'
+ALTER TABLE [dbo].[WordsOrPhrases]
+ADD CONSTRAINT [PK_WordsOrPhrases]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
