@@ -15,3 +15,45 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.WGrid {
+    margin: 2px;
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 10px 10px 10px #808080;
+}
+
+/* Заглавная строка */
+.WGrid thead tr {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.WGrid thead th {
+    text-align: center;
+}
+
+.WGrid thead th a:any-link {
+    color: black;
+}
+
+/* Ячейки */
+.WGrid th, .WGrid td {
+    border: 2px solid #505050;
+    padding: 2px 12px;
+}
+
+.EditLink {
+    cursor: pointer;
+}
+
+.WGrid tbody tr:hover {
+    background-color: ghostwhite;
+    text-shadow: 5px 5px 4px #aaaaaa;
+    transition: background-color 0.4s ease-out 0s,
+        text-shadow 0.4s ease-out 0s;
+}
+
+.AlternatingTableRow {
+    background-color: #fafafa;
+}
