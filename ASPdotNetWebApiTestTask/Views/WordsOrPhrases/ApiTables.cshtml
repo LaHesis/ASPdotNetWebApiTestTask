@@ -1,16 +1,133 @@
-﻿@{
-    ViewBag.Title = "Таблицы API";
-    var page = new WebGrid(Model, canPage: true, rowsPerPage: 5, defaultSort: "Text");
-    page.Pager(WebGridPagerModes.NextPrevious);
-    @page.GetHtml(tableStyle: "WGrid", alternatingRowStyle: "AlternatingTableRow",
-        columns: page.Columns(
-        page.Column("Text", "Слово", canSort: true),
-        page.Column("MainTranslation", "Основное значение", canSort: true),
-        page.Column("PhTranscription", "Транскрипция", canSort: true),
-        page.Column("IsIrregularVerb", "Неправильный глагол?", canSort: true),
-        page.Column("WhenAdded", "Добавлен", canSort: true),
-        page.Column("LearningStage", "Степень изучения", canSort: true),
-        page.Column(null, "Управление", format: @<b><a class="EditLink" id="@item.Id">Редактировать</a></b>)
-        )
-    );
+﻿<div id="gridContent">
+    @{
+        ViewBag.Title = "Таблицы API";
+        var page = new WebGrid(Model, canPage: true, rowsPerPage: 3, defaultSort: "Text");
+        page.Pager(WebGridPagerModes.NextPrevious);
+        @page.GetHtml(tableStyle: "WGrid", alternatingRowStyle: "AlternatingTableRow",
+                           footerStyle: "webgrid-footer", selectedRowStyle: "webgrid-selected-row",
+                           mode: WebGridPagerModes.All,
+                           columns: page.Columns(
+                                   page.Column("Text", "Слово", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblText">@item.Text</label>
+                            </span>
+                            <input type="text" id="Text" value="@item.Text" class="edit-mode" />
+                        </text>),
+                                  page.Column("MainTranslation", "Основное значение", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblMainTranslation">@item.MainTranslation</label>
+                            </span>
+                            <input type="text" id="MainTranslation" value="@item.MainTranslation" class="edit-mode" />
+                        </text>),
+                                  page.Column("PhTranscription", "Транскрипция", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblPhTranscription">@item.PhTranscription</label>
+                            </span>
+                            <input type="text" id="PhTranscription" value="@item.PhTranscription" class="edit-mode" />
+                        </text>),
+                                  page.Column("IsIrregularVerb", "Неправильный глагол?", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblIsIrregularVerb">@item.IsIrregularVerb</label>
+                            </span>
+                            <input type="text" id="IsIrregularVerb" value="@String.Format("{0}", item.IsIrregularVerb)" class="edit-mode" />
+                        </text>),
+                                  page.Column("WhenAdded", "Добавлен", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblWhenAdded">@item.WhenAdded</label>
+                            </span>
+                            <input type="text" id="WhenAdded" value="@item.WhenAdded" class="edit-mode" />
+                        </text>),
+                                  page.Column("LearningStage", "Степень изучения", canSort: true, format:
+                        @<text>
+                            <span class="display-mode">
+                                <label id="lblLearningStage">@item.LearningStage</label>
+                            </span>
+                            <input type="text" id="LearningStage" value="@item.LearningStage" class="edit-mode" />
+                        </text>),
+                                  page.Column("Управление", canSort: false, format:
+                        @<text>
+                            <button class="edit-user display-mode">Edit</button>
+                            <button class="save-user edit-mode" id="@item.Id">Save</button>
+                            <button class="cancel-user edit-mode">Cancel</button>
+                        </text>)
+                          )
+                      );
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            //$('.edit-mode').hide();
+
+            //var unchecked = document.createElement('input');
+            //$(unchecked).attr('type', 'checkbox');
+            //var checked = document.createElement('input');
+            //$(checked).attr('type', 'checkbox');
+            //$(checked).checked = true;
+            //$('#lblIsIrregularVerb').each((index, el) => {
+            //    $(el).text() == "True" ? $(el).append(checked) : $(el).append(unchecked);
+            //});
+
+            $('.edit-user, .cancel-user').on('click', function () {
+                // Получаем строку таблицы с кнопкой, по которой щелкнул пользователь.
+                var tr = $(this).parents('tr:first');
+                // Скрытие/отображение HTML-элементов для редактирования/просмотра записи.
+                tr.find('.edit-mode, .display-mode').toggle();
+            });
+
+            $('.save-user').on('click', function () {
+                var tr = $(this).parents('tr:first');
+                // Берем значение input'а в строке, по которой щелкнул пользователь.
+                var Text = tr.find("#Text").val();
+                var MainTranslation = tr.find("#MainTranslation").val();
+                var PhTranscription = tr.find("#PhTranscription").val();
+                var IsIrregularVerb = tr.find("#IsIrregularVerb").val();
+                var WhenAdded = tr.find("#WhenAdded").val();
+                var LearningStage = tr.find("#LearningStage").val();
+                var Id = tr.find('.save-user').attr('id');
+
+                // Обновляем (или, если точнее, заменяем) элементы <label>.
+                tr.find("#lblText").text(Text);
+                tr.find("#lblMainTranslation").text(MainTranslation);
+                tr.find("#lblPhTranscription").text(PhTranscription);
+                tr.find("#lblIsIrregularVerb").text(IsIrregularVerb);
+                tr.find("#lblWhenAdded").text(WhenAdded);
+                tr.find("#lblLearningStage").text(LearningStage);
+                // Переключаем в режим отображения - скрываем элементы input и отображаем элементы <snap>.
+                tr.find('.edit-mode, .display-mode').toggle();
+                // Создаем новый объект модели WordOrPhrase.
+                var WordOrPhrase =
+                    {
+                        "Id": Id,
+                        "Text": Text,
+                        "MainTranslation": MainTranslation,
+                        "PhTranscription": PhTranscription,
+                        "IsIrregularVerb": IsIrregularVerb,
+                        "WhenAdded": WhenAdded,
+                        "LearningStage": LearningStage
+                    };
+                // Посылаем Ajax-запрос, чтобы обновить запись в БД, соответствующую редактируемому объекту.
+                $.ajax({
+                    url: '/api/WordOrPhraseChanging/' + Id,
+                    data: JSON.stringify(WordOrPhrase),
+                    type: 'PUT',
+                    contentType: 'application/json; charset=utf-8',
+                    //success: function (data) {
+                    //    alert(data);
+                    //},
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+
+            });
+        })
+    </script>
 }

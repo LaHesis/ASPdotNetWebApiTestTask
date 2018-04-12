@@ -43,10 +43,6 @@ textarea {
     padding: 2px 12px;
 }
 
-.EditLink {
-    cursor: pointer;
-}
-
 .WGrid tbody tr:hover {
     background-color: ghostwhite;
     text-shadow: 5px 5px 4px #aaaaaa;
@@ -56,4 +52,8 @@ textarea {
 
 .AlternatingTableRow {
     background-color: #fafafa;
+}
+
+.edit-mode {
+    display: none;
 }
